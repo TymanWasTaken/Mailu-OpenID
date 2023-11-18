@@ -17,7 +17,7 @@ on:
       architecture:
         description: 'The architecture(s) of the images that will be build. linux/amd64 or linux/arm64/v8,linux/arm/v7 or linux/amd64,linux/arm64/v8,linux/arm/v7'
         required: false
-        default: 'linux/amd64'
+        default: 'linux/arm64/v8'
         type: string
       mailu_version:
         description: 'The main version that is build. E.g. master or x.y.'
@@ -55,7 +55,7 @@ on:
       architecture:
         description: 'The architecture(s) of the images that will be build. linux/amd64 or linux/arm64/v8,linux/arm/v7 or linux/amd64,linux/arm64/v8,linux/arm/v7'
         required: false
-        default: 'linux/amd64'
+        default: 'linux/arm64/v8'
         type: string
       mailu_version:
         description: 'The main version that is build. E.g. master or x.y.'
@@ -476,8 +476,8 @@ jobs:
     if: inputs.deploy == 'true'
     runs-on: ubuntu-latest
     needs:
-      - build
-      #- build-arm
+      #- build
+      - build-arm
       - tests
     strategy:
       fail-fast: false
