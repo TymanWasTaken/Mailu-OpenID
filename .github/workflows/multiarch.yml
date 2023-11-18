@@ -13,7 +13,7 @@ concurrency: ci-multiarch-${{ github.ref }}
 # REQUIRED global variables
 # DOCKER_ORG, docker org used for pushing images.
 env:
-  DOCKER_ORG: ghcr.io/heviat
+  DOCKER_ORG: ghcr.io/TymanWasTaken
   DOCKER_ORG_TEST: heviatci
 
 jobs:
