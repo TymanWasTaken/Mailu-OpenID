@@ -187,7 +187,7 @@ jobs:
 # This job builds the base and assets images. The build cache is stored in the ghcr.io registry.
   build-base-assets-arm:
     name: ARM - build intermediate
-    if: contains(inputs.architecture, 'linux/arm64/v8,linux/arm/v7')
+    if: contains(inputs.architecture, 'linux/arm64/v8')
     strategy:
       fail-fast: false
       matrix:
@@ -339,7 +339,7 @@ jobs:
 # This job builds the main images. The build cache is stored in the ghcr.io registry.
   build-arm:
     name: ARM - build
-    if: contains(inputs.architecture, 'linux/arm64/v8,linux/arm/v7')
+    if: contains(inputs.architecture, 'linux/arm64/v8')
     needs:
       - targets
       - build-base-assets-arm
@@ -509,7 +509,7 @@ jobs:
         with:
           string: ${{ github.repository_owner }}
       - name: Push multiarch image to Github (ghcr.io)
-        if: contains(inputs.architecture, 'linux/amd64') && contains(inputs.architecture, 'linux/arm64/v8,linux/arm/v7')
+        if: contains(inputs.architecture, 'linux/amd64') && contains(inputs.architecture, 'linux/arm64/v8')
         shell: bash
         run: |
           if [ '${{ env.MAILU_VERSION }}' == 'master' ]; then pinned_mailu_version='master'; else pinned_mailu_version=${{ env.PINNED_MAILU_VERSION}}; fi;
@@ -520,7 +520,7 @@ jobs:
             ghcr.io/${{ steps.string.outputs.lowercase }}/${{ matrix.target }}:${{ env.MAILU_VERSION }}-build \
             ghcr.io/${{ steps.string.outputs.lowercase }}/${{ matrix.target }}:${{ env.MAILU_VERSION }}-build-arm
       - name: Push x64 image to Github (ghcr.io)
-        if: contains(inputs.architecture, 'linux/amd64') && !contains(inputs.architecture, 'linux/arm64/v8,linux/arm/v7')
+        if: contains(inputs.architecture, 'linux/amd64') && !contains(inputs.architecture, 'linux/arm64/v8')
         shell: bash
         run: |
           if [ '${{ env.MAILU_VERSION }}' == 'master' ]; then pinned_mailu_version='master'; else pinned_mailu_version=${{ env.PINNED_MAILU_VERSION}}; fi;
@@ -530,7 +530,7 @@ jobs:
             --tag ${{ inputs.docker_org }}/${{ matrix.target }}:latest \
             ghcr.io/${{ steps.string.outputs.lowercase }}/${{ matrix.target }}:${{ env.MAILU_VERSION }}-build
       - name: Push arm image to Github (ghcr.io)
-        if: contains(inputs.architecture, 'linux/arm64/v8,linux/arm/v7') && !contains(inputs.architecture, 'linux/amd64')
+        if: contains(inputs.architecture, 'linux/arm64/v8') && !contains(inputs.architecture, 'linux/amd64')
         shell: bash
         run: |
           if [ '${{ env.MAILU_VERSION }}' == 'master' ]; then pinned_mailu_version='master'; else pinned_mailu_version=${{ env.PINNED_MAILU_VERSION}}; fi;
