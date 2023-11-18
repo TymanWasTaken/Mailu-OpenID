@@ -1,5 +1,6 @@
 name: start-linux-multiarch
 on:
+  workflow_dispatch:
   push:
     branches:
       - testing
